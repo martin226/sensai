@@ -9,5 +9,7 @@
 import Vue from 'vue';
 export default Vue.extend({
   name: 'LoginPage',
+  middleware: 'auth',
+  auth: 'guest',
 });
 </script>

@@ -5,6 +5,13 @@
   >
     <div class="space-y-8 w-full">
       <h2 class="text-4xl font-bold text-center">Register</h2>
+      <div
+        v-if="error"
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <span class="block sm:inline">{{ error }}</span>
+      </div>
       <label class="block">
         <span class="text-gray-700">Username</span>
         <input
@@ -71,10 +78,26 @@ export default Vue.extend({
         password: '',
       },
       showPassword: false,
+      error: '',
     };
   },
   methods: {
-    async register() {},
+    async register() {
+      this.error = '';
+      try {
+        await this.$axios.post('/api/auth/register', this.user);
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.user.username,
+            password: this.user.password,
+          },
+        });
+      } catch (error: any) {
+        if (error.response && error.response.data.message) {
+          this.error = error.response.data.message;
+        }
+      }
+    },
   },
 });
 </script>

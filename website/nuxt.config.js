@@ -1,4 +1,5 @@
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Sensai',
@@ -32,16 +33,49 @@ export default {
     'nuxt-windicss',
   ],
 
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/': 'http://localhost:5000/',
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+  auth: {
+    redirect: {
+      login: '/login',
+      home: '/dashboard',
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token',
+          maxAge: 86400,
+        },
+        user: {
+          property: 'profile',
+        },
+        endpoints: {
+          login: {
+            url: '/api/auth/token',
+            method: 'post',
+          },
+          logout: false,
+          user: {
+            url: '/api/auth/profile',
+            method: 'get',
+          },
+        },
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
