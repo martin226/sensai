@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <LandingHero class="min-h-screen" />
+  </div>
 </template>
 
 <script lang="ts">
