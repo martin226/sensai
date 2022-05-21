@@ -1,11 +1,13 @@
-from datetime import timedelta
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
-from .routes.auth import auth
 from flask_jwt_extended import JWTManager
+
+from .routes.auth import auth
+from .routes.workout import workout
 
 load_dotenv()
 
@@ -18,3 +20,4 @@ JWTManager(app)
 
 
 app.register_blueprint(auth, url_prefix="/api/auth")
+app.register_blueprint(workout, url_prefix="/api/workout")
