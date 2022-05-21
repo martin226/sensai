@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, make_response
 
 from ..database import mongo
 
@@ -15,3 +15,11 @@ def workout_list():
         workout["_id"] = str(workout["_id"])
         workout["id"] = workout.pop("_id")
     return make_response(jsonify({"workouts": workouts}))
+
+
+@workout.route("/<id_>")
+def workout_get(id_):
+    requested_workout = workout_collection.find_one({"_id": ObjectId(id_)})
+    requested_workout["_id"] = str(requested_workout["_id"])
+    requested_workout["id"] = requested_workout.pop("_id")
+    return make_response(jsonify({"workout": requested_workout}), 200)
