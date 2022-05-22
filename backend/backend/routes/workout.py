@@ -60,7 +60,7 @@ def workout_start(workout_id):
             update={"$push": {"workout_log": new_log}},
         )
 
-    return make_response(jsonify({"workout": requested_workout}), 200)
+    return make_response(jsonify({"workout": requested_workout, "log": new_log}), 200)
 
 
 @workout.route("/end/<int:id_>")
