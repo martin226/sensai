@@ -68,12 +68,9 @@ def workout_start(workout_id):
 def workout_end(id_):
     current_user = get_jwt_identity()
     user_from_db = users_collection.find_one({"username": current_user})
-    print(user_from_db)
     if user_from_db:
         workout_log = user_from_db["workout_log"]
         for (idx, workout) in enumerate(workout_log):
-            print("a")
-            print(id_, idx, workout["id"])
             if workout["id"] == id_:
                 workout_log[idx]["completed_at"] = int(datetime.now().timestamp())
                 workout_log[idx]["completed"] = True
