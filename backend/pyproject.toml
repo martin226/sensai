@@ -13,6 +13,10 @@ Flask-PyMongo = "^2.3.0"
 python-dotenv = "^0.20.0"
 Flask-JWT-Extended = "^4.4.0"
 argon2-cffi = "^21.3.0"
+mediapipe = "^0.8.10"
+numpy = "^1.22.4"
+Pillow = "^9.1.1"
+Flask-SocketIO = "^5.1.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
