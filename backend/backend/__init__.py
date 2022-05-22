@@ -20,7 +20,8 @@ from .routes.workout import workout
 from threading import Lock
 
 import logging
-log = logging.getLogger('werkzeug')
+
+log = logging.getLogger("werkzeug")
 log.setLevel(logging.ERROR)
 load_dotenv()
 
@@ -41,6 +42,7 @@ app.register_blueprint(workout, url_prefix="/api/workout")
 thread = None
 thread_lock = Lock()
 
+
 def background_thread(data):
     global thread
     try:
@@ -56,10 +58,16 @@ def background_thread(data):
         result = class_map[exercise](img, reps, prev_state)
         socket.emit(
             "coach",
-            {"reps": result.reps, "formHint": result.form_hint, "state": result.state, "exercise": exercise},
+            {
+                "reps": result.reps,
+                "formHint": result.form_hint,
+                "state": result.state,
+                "exercise": exercise,
+            },
         )
     finally:
         thread = None
+
 
 @socket.on("frame")
 def handle_frame(data):
