@@ -34,7 +34,7 @@
 ```bash
 cd backend
 poetry install
-FLASK_APP=backend FLASK_ENVIRONMENT=development poetry run flask run
+FLASK_APP=backend FLASK_ENV=development poetry run flask run
 ```
 
 ### Website
